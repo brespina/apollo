@@ -5,7 +5,7 @@
         <div class="socials">
             {% for social in config.extra.socials | default(value=[]) %}
             <a rel="me" href="{{ social.url }}" class="social">
-                <img alt={{ social.name }} src={{ get_url(path="social_icons/" ~ social.icon ~ ".svg") }}>
+                <img alt={{ social.name }} src={{ get_url(path="social_icons/" ~ social.icon ~ ".svg" ) }}>
             </a>
             {% endfor %}
         </div>
@@ -16,11 +16,29 @@
         <a href={{ get_url(path=menu.url) }} style="margin-left: 0.5em">{{ menu.name }}</a>
         {% endfor %}
 
+        <!-- Language Switcher
+        {% if config.extra.language_switcher | default(value=[]) %}
+        | <a href="{{ base_url }}" class="language-button {% if lang == 'en' %}active{% endif %}">
+            English
+        </a>
+        <a href="{{ base_url }}/zh/" class="language-button {% if lang == 'zh' %}active{% endif %}">
+            中文
+        </a>
+        {% endif %} -->
+
         {% if config.extra.theme | default(value="toggle") == "toggle" %}
         |<a id="dark-mode-toggle" onclick="toggleTheme(); event.preventDefault();" href="#">
-            <img src={{ get_url(path="feather/sun.svg") }} id="sun-icon" style="filter: invert(1);" alt="Light" />
-            <img src={{ get_url(path="feather/moon.svg") }} id="moon-icon" alt="Dark" />
+            <img src={{ get_url(path="feather/sun.svg" ) }} id="sun-icon" style="filter: invert(1);" alt="Light" />
+            <img src={{ get_url(path="feather/moon.svg" ) }} id="moon-icon" alt="Dark" />
         </a>
+
+        {% if lang == 'en' %}
+        <a id="language-toggle" href="{{ config.base_url }}/zh/">中文</a>
+        {% else %}
+        <a id="language-toggle" href="{{ config.base_url }}">english</a>
+        {% endif %}
+
+
 
         <!-- Inititialize the theme toggle icons -->
         <script>updateItemToggleTheme()</script>
